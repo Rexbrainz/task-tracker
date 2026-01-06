@@ -33,7 +33,7 @@ All commands use positional arguments. Examples:
 ./task-cli list          # all
 ./task-cli list done     # only done
 ./task-cli list todo     # only todo
-./task-cli list in-progress
+./task-cli list in-progress # only in-progress
 ```
 
 ## Task Data Model
@@ -49,3 +49,6 @@ Each task is stored in `db.json` with:
 ## Notes
 - Uses only the Go standard library and native filesystem access.
 - Handles basic validation (missing args, empty descriptions, unknown IDs, invalid status filters).
+
+## Project Source
+This project is one of the tasks from https://roadmap.sh/projects/task-tracker
