@@ -48,6 +48,9 @@ func (t *tasks) initializeTasks() error {
 	return nil
 }
 
+// encode() reopens the same file but with a trunc flag,
+// this makes sure at each write to the file a new state of json
+// file is encoded 
 func (t *tasks) encode() error {
 	file, err := os.OpenFile("db.json", os.O_TRUNC | os.O_CREATE | os.O_RDWR, 0644)
 	if err != nil {
@@ -172,6 +175,7 @@ func (t *tasks) delete() {
 	fmt.Printf("Task %d deleted\n", id)
 }
 
+// Update the status of the tasks
 func (t *tasks) updateStatus() {
 	if len(os.Args) != 3 {
 		fmt.Println("Error: updating task status requires the task's ID")
@@ -193,7 +197,7 @@ func (t *tasks) updateStatus() {
 	}
 
 	// Udpate the status of the task
-	if os.Args[1] == "mark-done" {
+	if strings.ToLower(os.Args[1]) == "mark-done" {
 		task.Status = "done"
 	} else {
 		task.Status = "in-progress"
@@ -222,7 +226,7 @@ func (t *tasks) list() {
 
 	// Get the keys and sort them, to enable us list the tasks orderly.
 	i := 0
-	for k,_ := range t.Db {
+	for k, _ := range t.Db {
 		keys[i] = k
 		i++
 	}
